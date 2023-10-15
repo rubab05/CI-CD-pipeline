@@ -24,6 +24,7 @@ def predict_sentiment(text):
     # Return the result as 'positive' or 'negative'
     return 'positive' if prediction[0] == 1 else 'negative'
 
+# Add two blank lines here
 
 # Define a route for the home page
 @app.route('/', methods=['GET', 'POST'])
@@ -36,7 +37,6 @@ def index():
         result = predict_sentiment(text)
 
     return render_template('index.html', result=result)
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
