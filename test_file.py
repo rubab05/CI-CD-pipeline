@@ -27,5 +27,8 @@ class FlaskAppTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'positive', response.data)
 
+        # Modify this part to check the result in the response
+        self.assertIn(b'The sentiment of the review is: positive', response.data)
+
 if __name__ == '__main__':
     unittest.main()
