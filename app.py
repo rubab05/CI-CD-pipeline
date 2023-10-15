@@ -2,7 +2,7 @@ import pickle
 from flask import Flask, render_template, request
 
 # Initialize Flask app
-app = Flask(__name)
+app = Flask(__name__)
 
 # Load the saved sentiment analysis model from the .pkl file
 with open('sentiment_model.pkl', 'rb') as model_file:
