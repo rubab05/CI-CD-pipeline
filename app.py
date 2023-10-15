@@ -12,6 +12,7 @@ with open('sentiment_model.pkl', 'rb') as model_file:
 with open('vectorizer.pkl', 'rb') as vectorizer_file:
     vectorizer = pickle.load(vectorizer_file)
 
+
 # Define a function for sentiment analysis
 def predict_sentiment(text):
     # Vectorize the text using the loaded CountVectorizer
