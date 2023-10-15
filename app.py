@@ -1,7 +1,5 @@
 import pickle
 from flask import Flask, render_template, request
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -16,6 +14,8 @@ with open('vectorizer.pkl', 'rb') as vectorizer_file:
 
 # Define a function for sentiment analysis
 def predict_sentiment(text):
+
+    
     # Vectorize the text using the loaded CountVectorizer
     text_vectorized = vectorizer.transform([text])
 
@@ -28,6 +28,8 @@ def predict_sentiment(text):
 # Define a route for the home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+    
     result = None
 
     if request.method == 'POST':
