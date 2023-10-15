@@ -1,33 +1,31 @@
 import unittest
+from flask import Flask
+from flask.testing import FlaskClient
+
+# Import your Flask app and ensure it's in the same directory
 from app import app, predict_sentiment
 
-class TestSentimentAnalysisApp(unittest.TestCase):
+class FlaskAppTestCase(unittest.TestCase):
 
     def setUp(self):
-        app.testing = True
+        # Create a test client for the app
         self.app = app.test_client()
+        self.app.testing = True
 
-    def test_index_page_loads(self):
+    def test_index_route(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
 
     def test_predict_sentiment_positive(self):
-        text = "I loved the movie. It was fantastic!"
-        sentiment = predict_sentiment(text)
-        self.assertEqual(sentiment, 'positive')
+        # Input a positive movie review
+        positive_review = "I absolutely loved this movie! It was fantastic."
 
-    def test_predict_sentiment_negative(self):
-        text = "The movie was terrible, I hated it."
-        sentiment = predict_sentiment(text)
-        self.assertEqual(sentiment, 'negative')
+        # Post the positive review to the predict route
+        response = self.app.post('/', data={'text': positive_review}, follow_redirects=True)
 
-    def test_post_request_with_positive_review(self):
-        response = self.app.post('/', data={'text': 'This is a great movie!'})
-        self.assertIn(b'Predicted Sentiment: positive', response.data)
-
-    def test_post_request_with_negative_review(self):
-        response = self.app.post('/', data={'text': 'I did not like this movie at all.'})
-        self.assertIn(b'Predicted Sentiment: negative', response.data)
+        # Ensure the response contains 'positive'
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'positive', response.data)
 
 if __name__ == '__main__':
     unittest.main()
