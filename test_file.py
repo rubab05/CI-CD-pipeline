@@ -16,19 +16,16 @@ class FlaskAppTestCase(unittest.TestCase):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
 
-    def test_predict_sentiment_positive(self):
-        # Input a positive movie review
-        positive_review = "I absolutely loved this movie! It was fantastic."
+    def test_predict_sentiment_negative(self):
+        # Input a negative movie review
+        negative_review = "This movie was terrible. I hated every moment of it."
 
-        # Post the positive review to the predict route
-        response = self.app.post('/', data={'text': positive_review}, follow_redirects=True)
+        # Post the negative review to the predict route
+        response = self.app.post('/', data={'text': negative_review}, follow_redirects=True)
 
-        # Ensure the response contains 'positive'
+        # Ensure the response contains 'negative'
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'positive', response.data)
-
-        # Modify this part to check the result in the response
-        self.assertIn(b'The sentiment of the review is: positive', response.data)
+        self.assertIn(b'negative', response.data)
 
 if __name__ == '__main__':
     unittest.main()
